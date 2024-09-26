@@ -17,4 +17,118 @@ spec:
         image: 127.0.0.1:30000/webui:v0.1
         ports:
           - name: http-port
-            containerPort:80
+            containerPort: 80
+            
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rngetf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app:rngetf
+  template:
+    metadata:
+      labels:
+        app: rngetf
+    spec:
+      containers:
+      - name: rngetf
+        image: 127.0.0.1:30000/rng:v0.1
+        ports:
+          - name: http-port
+            containerPort: 80
+            
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: broker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: broker
+  template:
+    metadata:
+      labels:
+        app: broker
+    spec:
+      containers:
+      - name: broker
+        image: 127.0.0.1:30000/worker:v0.1
+        ports:
+          - name: http-port
+            containerPort: 80
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rngtech
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app:rngtech
+  template:
+    metadata:
+      labels:
+        app: rngtech
+    spec:
+      containers:
+      - name: rngtech
+        image: 127.0.0.1:30000/rng:v0.1
+        ports:
+          - name: http-port
+            containerPort: 80
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rngcrypto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app:rngcrypto
+  template:
+    metadata:
+      labels:
+        app: rngcrypto
+    spec:
+      containers:
+      - name: rngcrypto
+        image: 127.0.0.1:30000/rng:v0.1
+        ports:
+          - name: http-port
+            containerPort: 80
+            
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis
+        ports:
+          - name: http-port
+            containerPort: 6379
